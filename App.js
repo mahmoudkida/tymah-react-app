@@ -11,6 +11,8 @@ import useLinking from './navigation/useLinking';
 import SelectCharacter from './screens/SelectCharacter';
 import client from "./utils/apolloClient";
 import { ApolloClient, ApolloProvider } from '@apollo/client';
+import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
+import ChildInformation from './screens/ChildInformation';
 
 const Stack = createStackNavigator();
 
@@ -55,16 +57,24 @@ export default function App(props) {
   } else {
     return (
       <ApolloProvider client={client}>
-      <View style={styles.container}>
+    <ApolloHooksProvider client={client}>
+    <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
+          <Stack.Navigator
+           screenOptions={{
+    headerShown: false
+  }}
+          >
             <Stack.Screen name="Select Your Character" component={SelectCharacter} />
+            <Stack.Screen name="Your Information" component={ChildInformation} />
             <Stack.Screen name="Root" component={BottomTabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
-      </ApolloProvider>
+    </ApolloHooksProvider>
+</ApolloProvider>
+     
     );
   }
 }
