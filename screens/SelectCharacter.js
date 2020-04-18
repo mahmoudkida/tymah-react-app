@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import {AsyncStorage, Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {AsyncStorage, Image, Platform, StyleSheet, Text, TouchableOpacity, View, FlatList} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import Query from '../utils/query';
@@ -11,43 +11,59 @@ import { FlatGrid } from 'react-native-super-grid';
 import BubbleText from '../components/BubbleText';
 import Colors from '../constants/Colors';
 import {saveUserData} from '../utils/UserData'
+import GridList from 'react-native-grid-list';
+import {useEffect} from "react";
+
 // import useAsyncStorage from "../utils/useAsyncStorage";
 export default function SelectCharacter({ navigation }) {
+  useEffect( () => {
+    let  userStorageData = {};
+    AsyncStorage.getItem('userData').then((data)=>{
+      if(data) {
+        userStorageData = JSON.parse(data);
+        if(userStorageData.name && userStorageData.age && userStorageData.avatar){
+          navigation.navigate('Home Page');
+        }
+      }
+    });
+
+
+
+  })
   return (
     <View style={[styles.container,{backgroundColor: Colors.whiteBlue}]}>
-      <ScrollView style={[styles.container,{backgroundColor: Colors.whiteBlue}]} contentContainerStyle={styles.contentContainer}>
-      <BubbleText 
-      style={[styles.PageTitle,{ color: Colors.purple}]}>Who of these looks like you
+      <BubbleText
+          style={[styles.PageTitle,{ color: Colors.purple}]}>Who of these looks like you
       </BubbleText>
 
-        <Query query={CHARACTERS_QUERY} id={null}>
+        <Query query={CHARACTERS_QUERY} id={null} style={{flex:1}}>
         {({ data: { characters } }) => {
-          return (
-            <FlatGrid
-        items={characters}
-        itemContainerStyle={{width:'50%',marginBottom: 50}}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity onPress={() => {storeCharacter(navigation, URLs.API_URL + item.Avatar.url)}}>
-          <Image style={{ 
-                  width:'100%',
-                  height: 200,
 
-    resizeMode: 'contain',
-}}
-            
-                 source={{uri: URLs.API_URL + item.Avatar.url}} />
-              
-              </TouchableOpacity> 
-         
-        )}
-      />
-           
+          return (
+              <FlatList
+                  style={{flex:1,height: '100%'}}
+                  data={characters}
+                  numColumns={2}
+                  renderItem={({ item, index }) => (
+                      <TouchableOpacity  key={index}  style={{flex: 1,marginBottom:40}} onPress={() => {storeCharacter(navigation, URLs.API_URL + item.Avatar.url)}}>
+                        <Image style={{
+                          width:'100%',
+                          height: 200,
+
+                          resizeMode: 'contain',
+                        }}
+
+                               source={{uri: URLs.API_URL + item.Avatar.url}} />
+
+                      </TouchableOpacity>
+
+                  )}
+              />
             )
             
         }}
         
       </Query>
-      </ScrollView>
     </View>
   );
 }

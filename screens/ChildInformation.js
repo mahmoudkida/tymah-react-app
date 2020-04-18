@@ -1,6 +1,16 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import {AsyncStorage, Image, Platform, StyleSheet, Text, TouchableOpacity, View, TextInput} from 'react-native';
+import {
+    AsyncStorage,
+    Image,
+    Platform,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    TextInput,
+    SafeAreaView
+} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Col, Row, Grid} from "react-native-easy-grid";
 
@@ -20,15 +30,36 @@ export default function ChildInformation({ navigation }) {
     const [user, setUser] = useState({});
     const [age, setAge] = useState(7);
     const ages = [4, 5, 6, 7, 8, 9, 10];
+
+    const storeUserData = async () =>{
+        if(!name){
+            alert("Please enter your name");
+        }
+
+        try{
+            let data = await AsyncStorage.getItem('userData')
+            data = JSON.parse(data);
+            data.name = name;
+            data.age = age;
+            await AsyncStorage.setItem('userData',JSON.stringify(data))
+
+        }
+        catch (e) {
+
+        }
+        navigation.navigate('Home Page')
+    }
+
+
+
     useEffect(() => {
         AsyncStorage.getItem('userData').then((data)=>{
-            debugger
             setUser(JSON.parse(data))
         })
         // getUserData().then((data)=>{
         //     debugger
         //     setUser(data)
-        // });
+        // });d
 
     },[]);
     const updateAge = (age)=>{
@@ -50,13 +81,14 @@ export default function ChildInformation({ navigation }) {
         navigation.navigate('Select Character')
     }
     return (
-        <View style={[styles.container, {backgroundColor: Colors.green}]}>
+        <SafeAreaView  style={[styles.container, {backgroundColor: Colors.green}]}>
             <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
                 <Ionicons name="md-arrow-back" size={32} color="black"/>
             </TouchableOpacity>
 
             <ScrollView style={[styles.container, {backgroundColor: Colors.green}]}
                         contentContainerStyle={styles.contentContainer}>
+                <View style={{marginTop:50}}/>
                 <Image style={{
                     width: '100%',
                     height: 200,
@@ -128,6 +160,7 @@ export default function ChildInformation({ navigation }) {
                         borderRadius:50
 
                     }}
+                            onPress={storeUserData}
                             titleStyle={{
                                 fontFamily:'anodina-regular',
                                 fontSize:22
@@ -143,9 +176,10 @@ export default function ChildInformation({ navigation }) {
             </ScrollView>
 
 
-        </View>
+        </SafeAreaView>
     );
 }
+
 
 ChildInformation.navigationOptions = {
     header: null,

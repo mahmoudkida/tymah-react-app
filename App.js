@@ -13,6 +13,8 @@ import client from "./utils/apolloClient";
 import { ApolloClient, ApolloProvider } from '@apollo/client';
 import { ApolloProvider as ApolloHooksProvider } from '@apollo/react-hooks'
 import ChildInformation from './screens/ChildInformation';
+import HomePage from "./screens/HomePage";
+import Videos from "./screens/Videos";
 
 const Stack = createStackNavigator();
 
@@ -68,6 +70,9 @@ export default function App(props) {
           >
             <Stack.Screen name="Select Your Character" component={SelectCharacter} />
             <Stack.Screen name="Your Information" component={ChildInformation} />
+            <Stack.Screen name="Home Page" component={HomePage} />
+            <Stack.Screen name="Videos" component={Videos} />
+
             <Stack.Screen name="Root" component={BottomTabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>

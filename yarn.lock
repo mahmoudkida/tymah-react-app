@@ -5836,6 +5836,11 @@ react-native-easy-grid@^0.2.2:
   dependencies:
     lodash "^4.17.15"
 
+react-native-easy-listview-gridview@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-easy-listview-gridview/-/react-native-easy-listview-gridview-1.0.3.tgz#9dee1e313b3884e0dabbda1e8db2a690d496d959"
+  integrity sha1-ne4eMTs4hODau9oejbKmkNSW2Vk=
+
 react-native-elements@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.7.tgz#1eca2db715c41722aeb67aea62bd2a4621adb134"
@@ -5859,6 +5864,13 @@ react-native-gesture-handler@~1.6.0:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.4"
     prop-types "^15.7.2"
+
+react-native-grid-list@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-grid-list/-/react-native-grid-list-1.1.0.tgz#accacca7b6c387704ab4f7edc735a484547dd3c2"
+  integrity sha512-sMyYIcKyEb4zyXpaisEIB3OWvgC9xXkw4XQGKEsFKMsPUQMD5IEG0qvnyy9NxJk/zaEy0aSV4u9x03iwtvM+jg==
+  dependencies:
+    prop-types "^15.6.0"
 
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
