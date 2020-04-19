@@ -1,25 +1,7 @@
-import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import {
-    AsyncStorage,
-    Image,
-    ImageBackground,
-    Platform,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import {useEffect, useState} from 'react';
+import {Platform, SafeAreaView, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Col, Row, Grid} from "react-native-easy-grid";
-
-import {MonoText} from '../components/StyledText';
-import {useEffect} from "react";
-import URLs from "../constants/URLs";
-import AnodinaRegular from "../components/AnodinaRegular";
-import {useState} from "react";
-import BubbleText from "../components/BubbleText";
 import {MainButton} from "../components/MainButton";
 import {Header} from "../components/Header";
 import {Footer} from "../components/Footer";
@@ -37,7 +19,7 @@ export default function HomePage(props) {
         // });
     })
     return (
-        <SafeAreaView  style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Header/>
 
             <ScrollView style={[styles.container]}
@@ -45,10 +27,11 @@ export default function HomePage(props) {
                             paddingTop: 100,
                             justifyContent: 'center',
                             alignItems: 'center',
-                            textAlign:'center'
                         }]}>
                 <MainButton
-                    handler={()=>{props.navigation.navigate('Videos')}}
+                    handler={() => {
+                        props.navigation.navigate('Videos')
+                    }}
                     backgroundImage={require("../assets/images/Mask-group.png")}
                     buttonIcon={require("../assets/images/212121.png")}
                     text="Watch Video"

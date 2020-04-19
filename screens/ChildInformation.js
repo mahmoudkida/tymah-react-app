@@ -1,59 +1,53 @@
-import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {
     AsyncStorage,
     Image,
     Platform,
+    SafeAreaView,
     StyleSheet,
     Text,
-    TouchableOpacity,
-    View,
     TextInput,
-    SafeAreaView
+    TouchableOpacity,
+    View
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Col, Row, Grid} from "react-native-easy-grid";
+import {Col, Row} from "react-native-easy-grid";
 
 import Colors from '../constants/Colors';
 import {Ionicons} from '@expo/vector-icons';
-import {getUserData} from '../utils/UserData'
-import {useState, useEffect} from "react";
 import BubbleText from "../components/BubbleText";
-import {Divider} from "react-native-elements";
+import {Button, Divider} from "react-native-elements";
 import AnodinaRegular from "../components/AnodinaRegular";
-import {useRef} from "react";
-import { Button } from 'react-native-elements';
 
-export default function ChildInformation({ navigation }) {
+export default function ChildInformation({navigation}) {
     const childName = useRef();
-    const [name,setName] = useState('');
+    const [name, setName] = useState('');
     const [user, setUser] = useState({});
     const [age, setAge] = useState(7);
     const ages = [4, 5, 6, 7, 8, 9, 10];
 
-    const storeUserData = async () =>{
-        if(!name){
+    const storeUserData = async () => {
+        if (!name) {
             alert("Please enter your name");
         }
 
-        try{
+        try {
             let data = await AsyncStorage.getItem('userData')
             data = JSON.parse(data);
             data.name = name;
             data.age = age;
-            await AsyncStorage.setItem('userData',JSON.stringify(data))
+            await AsyncStorage.setItem('userData', JSON.stringify(data))
 
-        }
-        catch (e) {
+        } catch (e) {
 
         }
         navigation.navigate('Home Page')
     }
 
 
-
     useEffect(() => {
-        AsyncStorage.getItem('userData').then((data)=>{
+        AsyncStorage.getItem('userData').then((data) => {
             setUser(JSON.parse(data))
         })
         // getUserData().then((data)=>{
@@ -61,13 +55,13 @@ export default function ChildInformation({ navigation }) {
         //     setUser(data)
         // });d
 
-    },[]);
-    const updateAge = (age)=>{
+    }, []);
+    const updateAge = (age) => {
         setAge(age);
     }
-    const saveUserData = async () =>{
+    const saveUserData = async () => {
         debugger
-        if(name == ''){
+        if (name == '') {
             alert('Please enter your name')
             return false;
         }
@@ -81,14 +75,14 @@ export default function ChildInformation({ navigation }) {
         navigation.navigate('Select Character')
     }
     return (
-        <SafeAreaView  style={[styles.container, {backgroundColor: Colors.green}]}>
+        <SafeAreaView style={[styles.container, {backgroundColor: Colors.green}]}>
             <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
                 <Ionicons name="md-arrow-back" size={32} color="black"/>
             </TouchableOpacity>
 
             <ScrollView style={[styles.container, {backgroundColor: Colors.green}]}
                         contentContainerStyle={styles.contentContainer}>
-                <View style={{marginTop:50}}/>
+                <View style={{marginTop: 50}}/>
                 <Image style={{
                     width: '100%',
                     height: 200,
@@ -127,18 +121,19 @@ export default function ChildInformation({ navigation }) {
                     borderWidth: 1,
                     borderRadius: 30,
                     backgroundColor: '#fff',
-                    justifyContent:'center',
-                    alignItems:'center',
-                    paddingLeft:30,
-                    paddingTop:20,
-                    paddingBottom:10
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    paddingLeft: 30,
+                    paddingTop: 20,
+                    paddingBottom: 10
                 }}>
                     {ages.map((item, index) => {
                         return (
-                            <Col  key={index} onPress={() => {
+                            <Col key={index} onPress={() => {
                                 updateAge(item);
-                            }} style={{textAlign:'center'}}>
+                            }}>
                                 <AnodinaRegular style={[
+                                    {textAlign: 'center'},
                                     styles.ageItem, age === item ? styles.activeAge : {}
                                 ]}>
                                     {item}
@@ -148,28 +143,28 @@ export default function ChildInformation({ navigation }) {
                     })}
                 </Row>
                 <View style={styles.years}>
-                    <Text style={{fontSize:15,fontFamily:'anodina-bold'}}>Years</Text>
+                    <Text style={{fontSize: 15, fontFamily: 'anodina-bold'}}>Years</Text>
                 </View>
 
-                <View style={{position:'relative', marginTop:60,overflow:'visible',marginBottom:60}}>
+                <View style={{position: 'relative', marginTop: 60, overflow: 'visible', marginBottom: 60}}>
                     <Button onPress={saveUserData} buttonStyle={{
-                        backgroundColor:Colors.red,
-                        paddingHorizontal:120,
-                        paddingVertical:15,
-                        textAlign:'center',
-                        borderRadius:50
+                        backgroundColor: Colors.red,
+                        paddingHorizontal: 120,
+                        paddingVertical: 15,
+                        textAlign: 'center',
+                        borderRadius: 50
 
                     }}
                             onPress={storeUserData}
                             titleStyle={{
-                                fontFamily:'anodina-regular',
-                                fontSize:22
+                                fontFamily: 'anodina-regular',
+                                fontSize: 22
                             }}
                             title="Next"
 
                     />
                     <Image source={require('../assets/images/button-arrow.png')}
-                    style={{position:'absolute',right:-40,top:-20,width:100,height:100}}
+                           style={{position: 'absolute', right: -40, top: -20, width: 100, height: 100}}
                     />
                 </View>
 
@@ -195,7 +190,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         position: 'relative',
         top: -7,
-        color:Colors.purple
+        color: Colors.purple
     },
     years: {
         backgroundColor: '#fff',
