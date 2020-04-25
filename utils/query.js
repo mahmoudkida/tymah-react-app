@@ -3,7 +3,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {ActivityIndicator} from "react-native";
 import AnodinaRegular from "../components/AnodinaRegular";
 
-const Query = ({children, query, id}) => {
+const Query = ({children, query, id, onComplete}) => {
     const {data, loading, error} = useQuery(query, {
         variables: {id: id}
     });
@@ -15,6 +15,8 @@ const Query = ({children, query, id}) => {
             JSON.stringify(error)
         }
     </AnodinaRegular>;
+
+
     return children({data});
 };
 

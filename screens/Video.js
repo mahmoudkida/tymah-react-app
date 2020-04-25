@@ -2,6 +2,7 @@ import {default as React, useEffect, useRef, useState} from "react";
 import {AsyncStorage, Image, Platform, SafeAreaView, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Header} from "../components/Header";
 import YoutubePlayer from 'react-native-youtube-iframe';
+import AnodinaRegular from "../components/AnodinaRegular";
 
 export default function Videos(props) {
     const [userData, setUserData] = useState({});
@@ -22,19 +23,14 @@ export default function Videos(props) {
 
             <View>
 
-                <View style={{marginHorizontal: 15, borderRadius: 15, marginTop: 30}}>
+                <View style={{borderRadius: 15, marginTop: 30, marginHorizontal: 15, marginBottom: 0}}>
                     <YoutubePlayer
 
                         ref={playerRef}
-                        height={300}
+                        height={250}
                         width={'100%'}
                         videoId={props.route.params.videoId}
                         play={playing}
-                        onChangeState={event => console.log(event)}
-                        onReady={() => console.log("ready")}
-                        onError={e => console.log(e)}
-                        onPlaybackQualityChange={q => console.log(q)}
-                        volume={50}
                         playbackRate={1}
                         playerParams={{
                             cc_lang_pref: "us",
@@ -42,6 +38,15 @@ export default function Videos(props) {
                         }}
                     />
                 </View>
+                <AnodinaRegular style={{
+                    textAlign: 'center',
+                    fontSize: 22,
+                    color: 'white',
+                    marginBottom: 15,
+                    paddingHorizontal: 15
+                }}>
+                    {props.route.params.videoTitle}
+                </AnodinaRegular>
                 <TouchableOpacity
                     style={{alignItems: 'center'}}
                     onPress={() => {

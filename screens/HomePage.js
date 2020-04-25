@@ -42,12 +42,18 @@ export default function HomePage(props) {
                     backgroundImage={require("../assets/images/Mask-group-2.png")}
                     buttonIcon={require("../assets/images/223232311.png")}
                     text="Play Games"
+                    handler={() => {
+                        props.navigation.navigate('Healthy Food Game')
+                    }}
                 />
                 <View style={{marginVertical: 20}}/>
                 <MainButton
                     backgroundImage={require("../assets/images/Mask-group-3.png")}
                     buttonIcon={require("../assets/images/Untitled-15.png")}
                     text="Learn & Grow"
+                    handler={() => {
+                        props.navigation.navigate('Health Information')
+                    }}
                 />
 
             </ScrollView>

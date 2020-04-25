@@ -16,6 +16,8 @@ import ChildInformation from './screens/ChildInformation';
 import HomePage from "./screens/HomePage";
 import Videos from "./screens/Videos";
 import Video from "./screens/Video";
+import HealthyFoodGame from "./screens/HealthyFoodGame";
+import HealthInformation from "./screens/HealthInformation";
 
 const Stack = createStackNavigator();
 
@@ -74,6 +76,8 @@ export default function App(props) {
                                 <Stack.Screen name="Home Page" component={HomePage}/>
                                 <Stack.Screen name="Videos" component={Videos}/>
                                 <Stack.Screen name="Video" component={Video}/>
+                                <Stack.Screen name="Healthy Food Game" component={HealthyFoodGame}/>
+                                <Stack.Screen name="Health Information" component={HealthInformation}/>
 
                                 <Stack.Screen name="Root" component={BottomTabNavigator}/>
                             </Stack.Navigator>

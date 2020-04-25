@@ -48,7 +48,7 @@ export function VideosSection(props) {
                         let videoId = (match && match[7].length == 11) ? match[7] : false;
                         return (
                             <VideoItem handler={() => {
-                                props.navigation.navigate('Video', {videoId})
+                                props.navigation.navigate('Video', {videoId: videoId, videoTitle: item.Title})
                             }} key={index} url={item.url} title={item.Title}
                                        image={{url: URLs.API_URL + item.thumbnail.url}}/>
                         )
