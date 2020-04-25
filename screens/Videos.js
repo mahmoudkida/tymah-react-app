@@ -36,9 +36,7 @@ export default function Videos(props) {
                                         return (
                                             <VideosSection
                                                 navigation={props.navigation}
-                                                first={index === 0}
-                                                style={{marginTop: index !== 0 ? -120 : 0}}
-                                                last={index === videocategories.length - 1}
+                                                index={index}
                                                 key={index} title={videoCategory.name}
                                                 videos={videoCategory.videos}
                                                 background={{uri: videoCategory.background ? URLs.API_URL + videoCategory.background.url : URLs.API_URL}}/>

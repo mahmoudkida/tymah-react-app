@@ -27,14 +27,25 @@ export function VideosSection(props) {
 
 
         <ImageBackground source={props.background}
-                         style={{width: '100%', flex: 1,}}>
-            <View style={{paddingBottom: 100, paddingTop: 60}}>
+                         imageStyle={{
+                             resizeMode: "cover",
+                             alignSelf: "flex-start",
+                             width: "100%", height: "100%",
+                         }}
+                         style={{
+                             marginTop: props.index !== 0 ? -65 : 0,
+                             width: '100%',
+                             flex: 1,
+
+                         }}>
+            <View style={{paddingTop: 60, paddingBottom: 30}}>
                 <BubbleText
                     style={{
                         width: '100%',
                         fontSize: 22,
                         color: 'white',
                         paddingLeft: 20,
+                        marginBottom: 20
                     }}>
                     {props.title}
                 </BubbleText>
@@ -46,11 +57,12 @@ export function VideosSection(props) {
                         let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
                         let match = item.url.match(regExp);
                         let videoId = (match && match[7].length == 11) ? match[7] : false;
+
                         return (
                             <VideoItem handler={() => {
                                 props.navigation.navigate('Video', {videoId: videoId, videoTitle: item.Title})
                             }} key={index} url={item.url} title={item.Title}
-                                       image={{url: URLs.API_URL + item.thumbnail.url}}/>
+                                       image={{uri: URLs.API_URL + item.thumbnail.url}}/>
                         )
                     }
                     }

@@ -47,7 +47,8 @@ export function VideoItem(props) {
     return (
         <TouchableOpacity onPress={props.handler}
                           style={{marginRight: 20, marginBottom: 50}}>
-            <Image source={props.image} style={{width: 100, height: 100, marginBottom: 10, resizeMode: 'cover'}}/>
+            <Image source={props.image} style={{width: 100, height: 100, marginBottom: 10, resizeMode: 'cover'}}
+                   resizeMode="cover"/>
             <AnodinaRegular
                 style={{
                     flex: 1,
